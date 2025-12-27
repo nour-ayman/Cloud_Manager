@@ -1,15 +1,13 @@
 # --- Ignore Heavy Data ---
-data/iso/
-data/disks/
+# 1. Ignore all files in these folders...
+data/iso/*
+data/disks/*
+
+# 2. ...BUT do not ignore the .gitkeep files (This keeps the folder structure)
+!data/iso/.gitkeep
+!data/disks/.gitkeep
+
+# 3. Extra safety to block heavy files anywhere
 *.iso
 *.img
 *.qcow2
-
-# --- Ignore Python Junk ---
-__pycache__/
-*.pyc
-*.spec
-
-# --- Ignore Editor Settings ---
-.vscode/
-.idea/
