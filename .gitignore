@@ -1,0 +1,15 @@
+# --- Ignore Heavy Data ---
+data/iso/
+data/disks/
+*.iso
+*.img
+*.qcow2
+
+# --- Ignore Python Junk ---
+__pycache__/
+*.pyc
+*.spec
+
+# --- Ignore Editor Settings ---
+.vscode/
+.idea/
