@@ -1,0 +1,5 @@
+*.iso
+*.vhdx
+__pycache__/
+*.log
+.env
