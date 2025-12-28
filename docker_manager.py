@@ -5,7 +5,7 @@ import sys
 def run_docker_command(command):
     """Runs a docker command and shows output in real-time"""
     try:
-        # We removed 'capture_output=True' so you see progress bars (e.g., download status)
+        # subprocess.run allows progress bars and real-time output in the terminal
         subprocess.run(command, shell=True, check=True, text=True)
     except subprocess.CalledProcessError:
         print(f"\n[ERROR] Command failed. Make sure Docker Desktop is running.")
@@ -22,10 +22,11 @@ def docker_menu():
         print("5. Stop a Container")
         print("6. Search Image (DockerHub)")
         print("7. Download/Pull Image")
-        print("8. Back to Main Menu")
+        print("8. Run Container (Launch)")  # <-- Added Feature
+        print("9. Back to Main Menu")        # <-- Updated Number
         print("="*40)
         
-        choice = input(">> Enter your choice (1-8): ")
+        choice = input(">> Enter your choice (1-9): ")
 
         if choice == '1':
             print("\n--- Create Dockerfile ---")
@@ -58,7 +59,7 @@ def docker_menu():
             run_docker_command("docker images")
 
         elif choice == '4':
-            run_docker_command("docker ps")
+            run_docker_command("docker ps -a")
 
         elif choice == '5':
             cid = input("Enter Container ID to stop: ")
@@ -74,11 +75,21 @@ def docker_menu():
             run_docker_command(f"docker pull {img}")
 
         elif choice == '8':
-            # This returns to main.py
+            print("\n--- Run Container ---")
+            img = input("Enter image name to run (e.g., test:1.0): ")
+            name = input("Enter a name for this container (optional): ")
+            
+            # -d runs it in the background so the CLI doesn't hang
+            if name:
+                run_docker_command(f"docker run -d --name {name} {img}")
+            else:
+                run_docker_command(f"docker run -d {img}")
+            print(f"[INFO] Container launch command sent for {img}")
+
+        elif choice == '9':
             break
         else:
             print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
-    # This allows you to test this file safely by itself
     docker_menu()

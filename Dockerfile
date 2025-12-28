@@ -5,7 +5,7 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Copy all project files to container
-COPY . .
+COPY main.py docker_manager.py vm_manager.py ./
 
 # Optional: install dependencies if you have a requirements.txt
 # RUN pip install -r requirements.txt
